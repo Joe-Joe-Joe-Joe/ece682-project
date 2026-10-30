@@ -1,7 +1,7 @@
-function [x_] = quad_dynamics_inertial(x,ctl,wind,params)
-
+function [x_] = quad_dynamics_inertial(x,ctl,wind,params,F)
+%x
 % Eq. 2.24 in Sabatino with state vector as 
-% x = [(pos(I), ang. (I), vel(I), ,ang velocity(B)]
+% x = [(pos(I), [roll, pitch, yaw] (I), vel(I), ,ang velocity(B)]
 %   ctl = u = [ft tau_x tau_y tau_z]
 %   params = [m Ix Iy Iz g]
 %   wind(disturbance) = [fwx fwy fwz tau_wx tau_wy tau_wz] is ignored...
@@ -37,10 +37,12 @@ g(11,3) = 1/Iy;
 g(12,4) = 1/Iz;
 
 d = zeros(12,6); %disturbance input
-d(7:9,1:3) = 1/m*R;
-d(10:12,4:6) = [1/Ix 0 0;
+d(7:9,1:3) = diag([1/m,1/m,1/m]); %forces in inertial frame, dont need to be moved
+d(10:12,4:6) = [1/Ix 0 0; %torques in body frame, dont need to be moved
                 0 1/Iy 0;
                 0 0 1/Iz];
 
-x_ = x_ + g*ctl+d*wind;
+ctl_ = F*x + ctl; %full state feedback control
+
+x_ = x_ + g*ctl_+d*wind;
 end
