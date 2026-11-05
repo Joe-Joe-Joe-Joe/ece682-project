@@ -4,7 +4,7 @@ function [R,T] = body_to_inertial(roll,pitch,yaw)
 
 R_x = [1 0 0;
     0 cos(roll) -sin(roll);
-    0 sin(pitch) cos(roll)];
+    0 sin(roll) cos(roll)];
 
 R_y = [cos(pitch) 0 sin(pitch);
         0,       1,           0;
