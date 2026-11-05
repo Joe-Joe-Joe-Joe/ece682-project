@@ -1,4 +1,4 @@
-function [x_] = quad_dynamics_inertial(x,ctl,wind,params,F)
+function [x_] = quad_dynamics_inertial(t,x,ctl,wind,params,F)
 %x
 % Eq. 2.24 in Sabatino with state vector as 
 % x = [(pos(I), [roll, pitch, yaw] (I), vel(I), ,ang velocity(B)]
@@ -43,7 +43,11 @@ d(10:12,4:6) = [1/Ix 0 0; %torques in body frame, dont need to be moved
                 0 0 1/Iz];
 
 ctl_ = F*x + ctl; %full state feedback control
+if norm(ctl_)
+    ctl_
+end
 x_ = x_ + g*ctl_+d*wind;
+% t
 end
 
 

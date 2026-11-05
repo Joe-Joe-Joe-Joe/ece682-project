@@ -27,13 +27,18 @@ B = [zeros(8,4);
 
 A = double(vpa(subs(A,[m Ix Iy Iz g], [0.547, 0.0033, 0.0033, 0.0058, 9.81])))
 B = double(vpa(subs(B,[m Ix Iy Iz g], [0.547, 0.0033, 0.0033, 0.0058, 9.81])))
-Ldesired = [-3, -3, -2+0.5i, -2-0.5i, -2, -2, -1, -1, -1, -1, -1, -1]-randn(1,12)*0;
+% Ldesired = [-1, -1, -1, -1, -2, -2, -1, -1, -1, -1, -1, -1]-rand(1,12);
 % Ldesired = [-1 -1.2 -1.4 ...
 %     -3 -3.2 -3.4 ...
 %     -4 -4.2 -4.4 ...
 %     -5 -5.2 -5.4];
+Ldesired = [-1 -1.2 -1.4 -1.6 ...
+    -2 -2.2 -2.4 -2.6 ...
+    -3 -3.2 -3.4 -3.6];
 
-F = compute_fb_multi(A,B,Ldesired)
+% F = compute_fb_multi(A,B,Ldesired) %produces poorly conditioned
+% eigenvectors
+F = -place(A,B,Ldesired)
 eig(A+B*F)
 
 save F.mat F

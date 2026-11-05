@@ -18,10 +18,10 @@ u_eq = [m*g 0 0 0]';
 
 % f = @(t,x) (quad_dynamics_inertial(x,u,wind,params));
 F = load("F.mat").F;
-f = @(t,x) (quad_dynamics_inertial(x,u_eq,generate_wind(t),params,F));
+f = @(t,x) (quad_dynamics_inertial(t,x,u_eq,generate_wind(t),params,F));
 
 % [t,y] = ode45(f,[0, 1],x_0); % y in NED inertial coordinates
-tend = 25;
+tend = 16;
 opts = odeset('Stats','on');
 [t,y] = ode45(f,[0, tend],x_0,opts); % y in NED inertial coordinates
 
@@ -32,7 +32,7 @@ visualize(t,y)
 %% local function
 function [wind] = generate_wind(t)
     if t < 5
-        wind = [0.2 0.2 0 0 0 0]';
+        wind = [0 0 -5 0 0 0]';
     else
         wind = zeros(6,1);
     end

@@ -30,6 +30,10 @@ hold off
 xlabel("t [s]")
 ylabel("angle [rad]")
 legend("\phi","\theta","\psi")
-figure(1)
+
+figure
+plot(t,y(:,3))
+
+% figure(1)
 
 end
