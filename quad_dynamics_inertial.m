@@ -43,6 +43,7 @@ d(10:12,4:6) = [1/Ix 0 0; %torques in body frame, dont need to be moved
                 0 0 1/Iz];
 
 ctl_ = F*x + ctl; %full state feedback control
-
 x_ = x_ + g*ctl_+d*wind;
 end
+
+
