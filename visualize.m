@@ -1,4 +1,8 @@
 function visualize(t,y)
+% toggles
+f1 = 1;
+f2 = 1;
+f3 = 0;
 % visualization functions 
 R = diag([1 -1 -1]);
 y(:,1:3) = y(:,1:3)*R'; %convert to NWU
@@ -36,6 +40,7 @@ set(groot,'defaultLineLineWidth',1.5);
 set(groot,'defaultAxesLineWidth',1.0);
 
 %% plotting
+if f1
 figure('Color','w','Position',[100 100 1750 900]);
 plot3(y(:,1),y(:,2),y(:,3));
 hold on;
@@ -53,7 +58,9 @@ grid on;
 % ylim(lims)
 % zlim(lims)
 set(findall(gcf,'Type','ax'),'FontSize',20)
+end
 
+if f2
 figure('Color','w','Position',[100 100 1750 900]);
 
 tiledlayout(1,2, ...
@@ -75,14 +82,24 @@ xlabel("t [s]")
 ylabel("position [m]")
 legend("x","y","z")
 grid on
+end
+
+if f3
+% Z
+figure('Color','w','Position',[100 100 1750 900]);
+plot(t,y(:,13:15))
+xlabel("t [s]")
+legend("z_1","z_2","z_3")
+grid on
+end
 
 set(findall(gcf,'Type','legend'),'FontSize',16)
 set(findall(gcf,'Type','legend'),'Color','w','TextColor','k','EdgeColor','k')
 set(findall(gcf,'Type','ax'),'FontSize',16)
 
 %% export
-figure(1)
-exportgraphics(gcf,'/home/joe/Documents/ECE682/project/figures/full_state_fb_control_3d.png', 'Resolution',300);
-figure(2)
-exportgraphics(gcf,'/home/joe/Documents/ECE682/project/figures/full_state_fb_control.png','Resolution',300);
+% figure(1)
+% exportgraphics(gcf,'/home/joe/Documents/ECE682/project/figures/full_state_fb_control_3d.png', 'Resolution',300);
+% figure(2)
+% exportgraphics(gcf,'/home/joe/Documents/ECE682/project/figures/full_state_fb_control.png','Resolution',300);
 end
