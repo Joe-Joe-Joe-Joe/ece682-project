@@ -2,7 +2,7 @@ function visualize(t,y)
 % toggles
 f1 = 1;
 f2 = 1;
-f3 = 0;
+f3 = 1;
 % visualization functions 
 R = diag([1 -1 -1]);
 y(:,1:3) = y(:,1:3)*R'; %convert to NWU
@@ -85,17 +85,20 @@ grid on
 end
 
 if f3
-% Z
+% -z(t) is exactly x_hat(7:9)
+e = y(:,7:9)-y(:,13:15);
 figure('Color','w','Position',[100 100 1750 900]);
-plot(t,y(:,13:15))
+plot(t,e)
+ylabel("error [m/s]")
 xlabel("t [s]")
-legend("z_1","z_2","z_3")
+legend("e_{vx}","e_{vy}","e_{vz}")
 grid on
 end
 
 set(findall(gcf,'Type','legend'),'FontSize',16)
 set(findall(gcf,'Type','legend'),'Color','w','TextColor','k','EdgeColor','k')
 set(findall(gcf,'Type','ax'),'FontSize',16)
+
 
 %% export
 % figure(1)

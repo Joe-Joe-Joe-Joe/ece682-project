@@ -23,7 +23,7 @@ tend = 16;
 opts = odeset('Stats','on');
 [t,y] = ode45(f,[0, tend],x0,opts); % y in NED inertial coordinates
 
-% Visualize data
+%% Visualize data
 close all;
 visualize(t,y)
 
