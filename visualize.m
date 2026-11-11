@@ -1,8 +1,8 @@
 function visualize(t,y)
 % toggles
 f1 = 1;
-f2 = 1;
-f3 = 1;
+f2 = 0;
+f3 = 0;
 % visualization functions 
 R = diag([1 -1 -1]);
 y(:,1:3) = y(:,1:3)*R'; %convert to NWU
@@ -44,7 +44,7 @@ if f1
 figure('Color','w','Position',[100 100 1750 900]);
 plot3(y(:,1),y(:,2),y(:,3));
 hold on;
-% plot3(endpoints(1,1), endpoints(1,2) , endpoints(1,3), 'o', 'MarkerSize', 10, 'MarkerFaceColor', 'g');
+plot3(endpoints(1,1), endpoints(1,2) , endpoints(1,3), 'o', 'MarkerSize', 10, 'MarkerFaceColor', 'y');
 plot3(endpoints(2,1), endpoints(2,2) , endpoints(2,3), 'o', 'MarkerSize', 10, 'MarkerFaceColor', 'r');
 plot3([0],[0],[0], 'o', 'MarkerSize', 10, 'MarkerFaceColor', 'g');
 hold off;
