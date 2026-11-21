@@ -72,7 +72,8 @@ L_2 = -place(A_22',A_12',L2desired)';
 else
 %% Do LQR
 % Compute LQR controller
-Q = C'*C;
+% Q = C'*C;
+Q = eye(12);
 R = diag([1,1,1,1]);
 F = -lqr(A,B,Q,R);
 % Compute LQR observer
@@ -90,5 +91,6 @@ observer.R = 0;
 observer.S = Tinv*[iC_1;
     -L_2*iC_1];
 observer.C = C;
+observer.tracking_flag = 0;
 save F.mat F observer
 

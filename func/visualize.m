@@ -1,8 +1,9 @@
 function visualize(t,y)
 % toggles
 f1 = 1;
-f2 = 0;
+f2 = 1;
 f3 = 0;
+f4 = 1;
 % visualization functions 
 R = diag([1 -1 -1]);
 y(:,1:3) = y(:,1:3)*R'; %convert to NWU
@@ -85,14 +86,29 @@ grid on
 end
 
 if f3
-% -z(t) is exactly x_hat(7:9)
-e = y(:,7:9)-y(:,13:15);
-figure('Color','w','Position',[100 100 1750 900]);
-plot(t,e)
-ylabel("error [m/s]")
-xlabel("t [s]")
-legend("e_{vx}","e_{vy}","e_{vz}")
-grid on
+    % -z(t) is exactly x_hat(7:9)
+    e = y(:,7:9)-y(:,13:15);
+    figure('Color','w','Position',[100 100 1750 900]);
+    plot(t,e)
+    ylabel("error [m/s]")
+    xlabel("t [s]")
+    legend("e_{vx}","e_{vy}","e_{vz}")
+    grid on
+end
+
+if f4
+    % e = y(:,[1, 2])-y(:,[13, 15]);
+    e=y(:,[13, 15]);
+    e2 = y(:, 1:2);
+    figure('Color','w','Position',[100 100 1750 900]);
+    plot(t,e)
+    hold on
+    plot(t,e2)
+    hold off
+    ylabel("error [m]")
+    xlabel("t [s]")
+    legend("r_{x}","r_{y}", "x","y")
+    grid on
 end
 
 set(findall(gcf,'Type','legend'),'FontSize',16)

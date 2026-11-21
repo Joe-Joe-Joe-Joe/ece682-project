@@ -11,6 +11,8 @@ function [x_] = quad_dynamics_inertial(t,x,ctl,wind,params,F,observer)
 
 % observer is an additional 3 states tacked on
 
+flag = observer.tracking_flag;
+
 m = params(1);
 Ix = params(2);
 Iy = params(3);
@@ -19,7 +21,13 @@ g = params(5);
 
 [R, T] = body_to_inertial(x(4),x(5),x(6));
 
-x_ = zeros([15 1]);
+if flag
+    qn2 = length(observer.Ac);
+    x_ = zeros([12+7+qn2, 1]); %output tracking, full order
+else
+    x_ = zeros([15 1]); %min order observer-based feedback (LQR/pole placement)
+end
+
 
 p = x(10);
 q = x(11);
@@ -44,15 +52,22 @@ d(10:12,4:6) = [1/Ix 0 0; %torques in body frame, dont need to be moved
                 0 1/Iy 0;
                 0 0 1/Iz];
 
+if flag
+y = observer.QC*x(1:19); %project plant+exosystem into [y0 e]
+x_(20:end) = observer.Ac*x(20:end)+observer.Bc*y;
+ctl_ = observer.Cc*x(20:end)+observer.Dc*y+ctl;
+else
 y = observer.C*x(1:12);
 z = x(13:15);
 x_hat = observer.Q*z+observer.S*y;
-
-% ctl_ = F*x + ctl; %full state feedback control
 ctl_ = F*x_hat + ctl; % estimator feedback control
+x_(13:15) = observer.M*z+observer.N*(ctl_-ctl)+observer.P*y;
+end
+% ctl_ = F*x + ctl; %full state feedback control
 
 x_(1:12) = x_(1:12) + g*ctl_+d*wind;
-x_(13:15) = observer.M*z+observer.N*(ctl_-ctl)+observer.P*y;
+x_(13:19) = observer.A2*x(13:19);
+
 
 end
 
