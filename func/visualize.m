@@ -97,17 +97,28 @@ if f3
 end
 
 if f4
-    % e = y(:,[1, 2])-y(:,[13, 15]);
-    e=y(:,[13, 15]);
-    e2 = y(:, 1:2);
+    e = y(:,[1, 2])-y(:,[13, 15]);
+    r = y(:,[13, 15]);
+    p = y(:, 1:2);
     figure('Color','w','Position',[100 100 1750 900]);
-    plot(t,e)
+    tiledlayout(1,2, ...
+        'TileSpacing','loose', ...
+        'Padding','loose');
+    
+    nexttile
+    plot(t,r)
     hold on
-    plot(t,e2)
+    plot(t,p)
     hold off
-    ylabel("error [m]")
+    ylabel("position [m]")
     xlabel("t [s]")
     legend("r_{x}","r_{y}", "x","y")
+
+    nexttile
+    plot(t,e)
+    ylabel("error [m]")
+    xlabel("t [s]")
+    legend("e_{x}","e_{y}")
     grid on
 end
 
