@@ -30,7 +30,7 @@ end
 u_eq = [m*g 0 0 0]';
 f = @(t,x) (quad_dynamics_inertial(t,x,u_eq,generate_wind(t),params,F,observer));
 
-tend = 30;
+tend = 40;
 opts = odeset('Stats','on');
 [t,y] = ode45(f,[0, tend],x0,opts); % y in NED inertial coordinates
 
@@ -40,8 +40,10 @@ visualize(t,y)
 
 %% local function
 function [wind] = generate_wind(t)
-    if (4 < t) && (t < 0)
-        wind = [3 5 -5 0 0 0]';
+    if (22 < t) && (t < 23)
+        wind = [0.3 0 0 0 0 0]';
+    elseif (25 < t) && (t < 26)
+        wind = [0 0.2 0 0 0 0]';
     else
         wind = zeros(6,1);
     end

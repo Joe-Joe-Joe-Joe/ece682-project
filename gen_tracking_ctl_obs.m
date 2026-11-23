@@ -45,7 +45,7 @@ A2 = [0 1 0 0  0 0 0;
     0 0 0 0 0 0 0;
     0 0 0 0 0 0 0;];
 C1 = C;
-C2 = [eye(4) zeros(4,3)];
+C2 = [[1 0 0 0; 0 0 1 0] zeros(2,3)];
 B1 = B;
 D1 = [eye(2) zeros(2,10)];
 D2 = [[-1 0 0; 0 0 -1] zeros(2,4)];
@@ -53,7 +53,7 @@ D = [D1 D2];
 
 A = [A1 A3; zeros(7,12) A2];
 C = [C1 zeros(9,7);
-    zeros(4,12) C2];
+    zeros(2,12) C2];
 B = [B1; zeros(7,4)];
 
 % screw you matlab 
