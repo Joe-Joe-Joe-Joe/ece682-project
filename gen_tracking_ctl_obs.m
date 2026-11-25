@@ -129,7 +129,6 @@ observer.Dc = Dc;
 observer.QC = [C1 C2] % maps [x1 x2]' into [y0 e]'
 observer.tracking_flag = 1;
 observer.A2 = A2;
-observer.QC(11,15) = 1; %TODO fix?
 F = 0;
 
 save F.mat observer F

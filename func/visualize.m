@@ -7,6 +7,7 @@ f4 = 1;
 % visualization functions 
 R = diag([1 -1 -1]);
 y(:,1:3) = y(:,1:3)*R'; %convert to NWU
+y(:,15) = -y(:,15);
 
 endpoints = [y(1,1:3); y(end,1:3)];
 

@@ -19,8 +19,9 @@ if observer.tracking_flag
     ex_0 = zeros(1,7);
     xc_0 = zeros(1,26);
     x0 = [x_0 ex_0 xc_0];
-    x0(13) = 1;
-    x0(16) = 6.25/10;
+
+    x0(13) = 1; %r_x
+    x0(16) = 6.25/10; %rdot_y
 else
 % min obs is 3 states
 z_0 = [0 0 0]; 
